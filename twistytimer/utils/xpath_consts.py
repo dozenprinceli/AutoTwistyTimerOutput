@@ -19,3 +19,4 @@ PENALTY_TEXT = '//*[@resource-id="com.aricneto.twistytimer:id/puzzlePenaltyText"
 COMMENT_BTN = '//*[@resource-id="com.aricneto.twistytimer:id/commentButton"]'
 COMMENT_TEXT = '//*[@resource-id="com.aricneto.twistytimer:id/commentText"]'
 UNARCHIVE_BTN = '//android.widget.ListView/android.widget.LinearLayout[1]'
+HISTORY_BTN = '//*[@resource-id="com.aricneto.twistytimer:id/nav_button_history"]'
