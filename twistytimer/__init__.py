@@ -242,7 +242,7 @@ def init():
     logging.basicConfig(filename='../log/auto_outputer.log',
                         filemode='w',
                         level=logging.INFO,
-                        format='%(asctime)s - %(levelname)s: %(message)s')
+                        format='%(asctime)s %(levelname)s - %(message)s')
     global logger
     logger = logging.getLogger('AutoOutputer')
     logger.setLevel(logging.DEBUG)
