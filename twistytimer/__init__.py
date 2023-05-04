@@ -248,7 +248,7 @@ def init():
     logger.setLevel(logging.DEBUG)
     console_handler = logging.StreamHandler()
     file_handler = logging.FileHandler('../log/auto_outputer.log', mode='w', encoding='utf-8')
-    fmt = logging.Formatter(fmt='%(asctime)s - %(levelname)s: %(message)s')
+    fmt = logging.Formatter(fmt='%(asctime)s - %(levelname)s : %(message)s')
     console_handler.setFormatter(fmt)
     file_handler.setFormatter(fmt)
     logger.addHandler(console_handler)
