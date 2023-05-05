@@ -8,6 +8,7 @@ from typing import Optional
 
 import uiautomator2 as u2
 from uiautomator2 import Device
+from uiautomator2.exceptions import XPathElementNotFoundError
 
 from twistytimer.utils import xpath_consts, timer_consts, data_utils
 from twistytimer.utils.timer_consts import *
@@ -218,17 +219,21 @@ class AutoOutputer:
 
         with open(self.file_path, 'a') as file:
             while True:
-                solve_info = self.data_page.opration_on_first_card()
-                if solve_info is None:
-                    break
-                insert = solve_info.get_insert_string()
-                file.write(insert + '\n')
-                logger.info('[Write to file] {' + insert + '}')
-                global exit_flag
-                if exit_flag:
-                    logger.info('[Exit] exit due to keyboard input')
-                    return
-                time.sleep(0.5)
+                try:
+                    solve_info = self.data_page.opration_on_first_card()
+                    if solve_info is None:
+                        break
+                    insert = solve_info.get_insert_string()
+                    file.write(insert + '\n')
+                    logger.info('[Write to file] {' + insert + '}')
+                    global exit_flag
+                    if exit_flag:
+                        logger.info('[Exit] exit due to keyboard input')
+                        return
+                except XPathElementNotFoundError as err:
+                    print(err.__traceback__)
+                finally:
+                    time.sleep(0.5)
 
 
 def command_line():
@@ -238,7 +243,7 @@ def command_line():
         exit_flag = True
 
 
-def init():
+def init_logger():
     logging.basicConfig(filename='../log/auto_outputer.log',
                         filemode='w',
                         level=logging.INFO,
@@ -256,7 +261,7 @@ def init():
 
 
 def main():
-    init()
+    init_logger()
     main_thread = Thread(target=AutoOutputer().output_cur_archive())
     input_thread = Thread(target=command_line())
     input_thread.start()
